@@ -40,35 +40,39 @@ function loadVideos(searchtext=""){
 }
 
 const loadCatoriesVides=(id)=>{
-console.log(id);
+// console.log(id);
 const url=`https://openapi.programming-hero.com/api/phero-tube/category/${id}`
-console.log(url);
+// console.log(url);
 fetch(url).then((res)=>res.json())
 .then((data)=>{
   removeActiveclass()
   const clickbtn =document.getElementById(`btn-${id}`)
-  console.log(clickbtn)
+  // console.log(clickbtn)
   clickbtn.classList.add("active")
 displayVidoes(data.category)
   
     
 })
 }
-const  loadVideoDetils=(videoid)=>{
+const  loadVideoDetils=(videoid) =>{
+console.log(videoid);
 
   const url =`https://openapi.programming-hero.com/api/phero-tube/video/${videoid}`
 fetch(url).then((res)=>res.json())
-.then((data)=> displayvidesDetails(data.video)
+.then((data)=>{
+   console.log(data);
+  
+    displayvidesDetails(data.video)
+}
+
 )
 }
 const displayvidesDetails=(video)=>{
-console.log(video);
 
 document.getElementById("video_detils").showModal()
-const  detailscontainer=document.getElementById("delali-container");
+const  detailscontainer=document.getElementById("video_detils");
 
 detailscontainer.innerHTML=`
-
 <div class="card bg-base-100 image-full w-full shadow-sm">
   <figure>
     <img
@@ -76,7 +80,7 @@ detailscontainer.innerHTML=`
       alt="Shoes" />
   </figure>
   <div class="card-body">
-    <h2 class="card-title">${video.description}</h2>
+    <h2 class="card-title"></h2>
    
     <div class="card-actions justify-end">
       <button class="btn btn-primary">Buy Now</button>
@@ -84,7 +88,7 @@ detailscontainer.innerHTML=`
   </div>
 </div>
 
-`
+`;
 }
 
 
@@ -111,7 +115,7 @@ video.forEach(videos => {
 <img class="w-full h-[150px]  object-cover "
   src="${videos.thumbnail}"
   alt="" />
-  <span class="absolute bottom-2 text-sm right-3  rounded-md text-white bg-black"> 3hrs 56min age</span>
+  <span class="absolute bottom-2 text-xs right-3 p-1 rounded-md text-white bg-black"> 3hrs 56min age</span>
 </figure>
 <div class=" flex gap-3 px-0 py-5">
 <div class="profile">
@@ -131,7 +135,7 @@ video.forEach(videos => {
   <p class=" text-sm text-gray-400">${videos.others.views} </p>
 </div>
 </div>
-<button    onclick=loadVideoDetils('${videos.video_id}')"  class="btn btn-block">Show Details</button>
+<button    onclick="loadVideoDetils('${videos.video_id}')"  class="btn btn-block">Show Details</button>
 </div>
 `
       videoContainer.append(videoCard)
@@ -154,7 +158,7 @@ for (let cat of categories) {
 }
 document.getElementById("search-input").addEventListener("keyup",(e)=>{
 const input =e.target.value;
-console.log(input);
+// console.log(input);
 loadVideos(input)
 })
 
